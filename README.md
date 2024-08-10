@@ -1,0 +1,1 @@
+Built a secure web application for user authentication and registration using Flask and SQLAlchemy, enabling users to create accounts, log in, and manage their profiles with robust database integration.
