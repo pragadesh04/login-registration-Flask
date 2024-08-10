@@ -106,16 +106,23 @@ def signup():
         db.session.add(datas)
         db.session.commit()
     else:
-        return "<h1>Passwords do not match</h1>"
-    return "Successfull"
+        return render_template('messages.html', message = "Try Again", buttonMsg = "Okay!")
+    return render_template('messages.html', message = "Account Created Succesfully",buttonMsg="Try Again!")
     
 @app.route("/signin", methods=['POST'])
 def signin():
     username = request.form.get('username')
     password = request.form.get('password')
 
-    print(f"Username: {username}, Password: {password}")
-    return "<h1>SignIn successful</h1>"
+    user = data.query.filter_by(username = username).first()
+
+    if user:
+        print(user.password)
+        print(hashing(password))
+        if user.password == hashing(password):
+                return render_template('messages.html', message = "Logged in SuccessFully", buttonMsg = "Okay!")     
+    else:
+        return render_template('messages.html', message = "Try Again", buttonMsg="Try Again!")
 
 
 
