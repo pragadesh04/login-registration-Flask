@@ -94,9 +94,11 @@ def signup():
     confirm_password = request.form.get('confirm_password')
     global hash
 
-    user = data.query.filter_by(username='user1').first()
+    user = data.query.filter_by(username=username).first()
+    if user:
+        return render_template('messages.html', message="Name Already exsit Login!", buttonMsg = "Login")
 
-    if not user and password == confirm_password:
+    if password == confirm_password:
         print(f"Username: {username}, Password: {password}, Confirm Password: {confirm_password}")
 
         hash = hashing(password)
